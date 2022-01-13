@@ -14,7 +14,9 @@ autoreconf --force --install --verbose
             --enable-64bit
 
 make -j ${CPU_COUNT}
-make test
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+  make test
+fi
 make -j ${CPU_COUNT} install
 
 mv $PREFIX/lib/tcl*/expect${PKG_VERSION}/libexpect${PKG_VERSION}${SHLIB_EXT} $PREFIX/lib
