@@ -1,3 +1,4 @@
+autoreconf -vfi
 aclocal
 autoconf
 ( cd testsuite

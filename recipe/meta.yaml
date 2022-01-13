@@ -29,7 +29,7 @@ source:
     # Patch8: unificates usage message of expect binary and man page, adds -h flag
     - patches/expect-5.45.4-unification-of-usage-and-man-page.patch
     # Patch9: fixes issues detected by static analysis
-    - patches/expect-5.45.4-covscan-fixes.patch
+    - patches/expect-5.45.4-covscan-fixes.patch  # [not osx]
     # examples patches
     # Patch100: changes random function
     - patches/expect-5.32.2-random.patch
