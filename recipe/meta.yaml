@@ -49,7 +49,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [not linux]
+  skip: True  # [not unix]
   run_exports:
     # Soname bumps on patch releases :'(
     # https://abi-laboratory.pro/index.php?view=timeline&l=expect
