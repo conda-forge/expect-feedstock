@@ -46,7 +46,7 @@ source:
     - patches/expect-5.45-format-security.patch
     # CB uses long paths
     - patches/0001-Increase-file-buffer-size-for-rc-files.patch
-    - patches/allow-cross-compilation.patch  # [linux-ppc64le or osx-arm64 or linux-aarch64]
+    - patches/allow-cross-compilation.patch  # [linux-ppc64le or linux-aarch64 or (osx and arm64)]
 build:
   number: 1
   skip: true  # [not unix]
