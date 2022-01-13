@@ -1,13 +1,21 @@
-autoreconf -vfi
-aclocal
-autoconf
-( cd testsuite
-  autoconf -I.. )
+# autoreconf -vfi
 
-./configure --prefix=$PREFIX --build=$BUILD --host=$HOST --with-tclinclude=$PREFIX/include
+cp $BUILD_PREFIX/share/gnuconfig/config.guess tclconfig/config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.sub tclconfig/config.sub
+
+autoreconf --force --install --verbose
+
+./configure --prefix=$PREFIX \
+            --exec-prefix=$PREFIX \
+            --build=$BUILD \
+            --host=$HOST \
+            --with-tclinclude=$PREFIX/include \
+            --enable-shared \
+            --enable-64bit
+
 make -j ${CPU_COUNT}
 make test
 make -j ${CPU_COUNT} install
 
-mv $PREFIX/lib/tcl*/expect${PKG_VERSION}/libexpect${PKG_VERSION}.so $PREFIX/lib
-ln -s libexpect${PKG_VERSION}.so $PREFIX/lib/libexpect.so
+mv $PREFIX/lib/tcl*/expect${PKG_VERSION}/libexpect${PKG_VERSION}${SHLIB_EXT} $PREFIX/lib
+ln -s libexpect${PKG_VERSION}${SHLIB_EXT} $PREFIX/lib/libexpect${SHLIB_EXT}

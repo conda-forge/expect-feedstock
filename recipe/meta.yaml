@@ -48,8 +48,8 @@ source:
     - patches/0001-Increase-file-buffer-size-for-rc-files.patch
 
 build:
-  number: 0
-  skip: True  # [not unix]
+  number: 1
+  skip: true  # [not unix]
   run_exports:
     # Soname bumps on patch releases :'(
     # https://abi-laboratory.pro/index.php?view=timeline&l=expect
@@ -58,6 +58,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - gnuconfig
     - autoconf
     - automake
     - make
