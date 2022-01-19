@@ -64,7 +64,7 @@ requirements:
     - autoconf
     - automake
     - make
-    - tcsh
+    - tk  # [osx and arm64]
   host:
     - tk
 
