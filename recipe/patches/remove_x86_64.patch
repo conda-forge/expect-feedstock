@@ -1,0 +1,47 @@
+diff --git a/tclconfig/tcl_orig.m4 b/tclconfig/tcl.m4
+index 0689cab..a7556ab 100644
+--- a/tclconfig/tcl_orig.m4
++++ b/tclconfig/tcl.m4
+@@ -1661,41 +1661,7 @@ dnl AC_CHECK_TOOL(AR, ar)
+ 	    CFLAGS="`echo " ${CFLAGS}" | \
+ 		awk 'BEGIN {FS=" +-";ORS=" "}; {for (i=2;i<=NF;i++) \
+ 		if (!([$]i~/^(isysroot|mmacosx-version-min)/)) print "-"[$]i}'`"
+-	    AS_IF([test $do64bit = yes], [
+-		case `arch` in
+-		    ppc)
+-			AC_CACHE_CHECK([if compiler accepts -arch ppc64 flag],
+-				tcl_cv_cc_arch_ppc64, [
+-			    hold_cflags=$CFLAGS
+-			    CFLAGS="$CFLAGS -arch ppc64 -mpowerpc64 -mcpu=G5"
+-			    AC_TRY_LINK(,, tcl_cv_cc_arch_ppc64=yes,
+-				    tcl_cv_cc_arch_ppc64=no)
+-			    CFLAGS=$hold_cflags])
+-			AS_IF([test $tcl_cv_cc_arch_ppc64 = yes], [
+-			    CFLAGS="$CFLAGS -arch ppc64 -mpowerpc64 -mcpu=G5"
+-			    do64bit_ok=yes
+-			]);;
+-		    i386)
+-			AC_CACHE_CHECK([if compiler accepts -arch x86_64 flag],
+-				tcl_cv_cc_arch_x86_64, [
+-			    hold_cflags=$CFLAGS
+-			    CFLAGS="$CFLAGS -arch x86_64"
+-			    AC_TRY_LINK(,, tcl_cv_cc_arch_x86_64=yes,
+-				    tcl_cv_cc_arch_x86_64=no)
+-			    CFLAGS=$hold_cflags])
+-			AS_IF([test $tcl_cv_cc_arch_x86_64 = yes], [
+-			    CFLAGS="$CFLAGS -arch x86_64"
+-			    do64bit_ok=yes
+-			]);;
+-		    *)
+-			AC_MSG_WARN([Don't know how enable 64-bit on architecture `arch`]);;
+-		esac
+-	    ], [
+-		# Check for combined 32-bit and 64-bit fat build
+-		AS_IF([echo "$CFLAGS " |grep -E -q -- '-arch (ppc64|x86_64) ' \
+-		    && echo "$CFLAGS " |grep -E -q -- '-arch (ppc|i386) '], [
+-		    fat_32_64=yes])
+-	    ])
++	    AS_IF([test $do64bit = yes], [], [])
+ 	    # TEA specific: use LDFLAGS_DEFAULT instead of LDFLAGS
+ 	    SHLIB_LD='${CC} -dynamiclib ${CFLAGS} ${LDFLAGS_DEFAULT}'
+ 	    AC_CACHE_CHECK([if ld accepts -single_module flag], tcl_cv_ld_single_module, [

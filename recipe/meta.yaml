@@ -29,7 +29,7 @@ source:
     # Patch8: unificates usage message of expect binary and man page, adds -h flag
     - patches/expect-5.45.4-unification-of-usage-and-man-page.patch
     # Patch9: fixes issues detected by static analysis
-    - patches/expect-5.45.4-covscan-fixes.patch
+    - patches/expect-5.45.4-covscan-fixes.patch  # [not osx]
     # examples patches
     # Patch100: changes random function
     - patches/expect-5.32.2-random.patch
@@ -46,10 +46,12 @@ source:
     - patches/expect-5.45-format-security.patch
     # CB uses long paths
     - patches/0001-Increase-file-buffer-size-for-rc-files.patch
+    - patches/allow-cross-compilation.patch  # [build_platform != target_platform]
+    - patches/remove_x86_64.patch  # [osx and arm64]
 
 build:
-  number: 0
-  skip: True  # [not linux]
+  number: 1
+  skip: true  # [not unix]
   run_exports:
     # Soname bumps on patch releases :'(
     # https://abi-laboratory.pro/index.php?view=timeline&l=expect
@@ -58,9 +60,11 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - gnuconfig
     - autoconf
     - automake
     - make
+    - tk  # [osx and arm64]
   host:
     - tk
 
